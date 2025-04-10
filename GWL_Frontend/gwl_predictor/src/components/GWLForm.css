@@ -1,0 +1,64 @@
+.gwl-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .gwl-container h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  .gwl-form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .gwl-form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
+  
+  .gwl-form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border 0.3s;
+  }
+  
+  .gwl-form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .gwl-button {
+    width: 100%;
+    padding: 0.7rem;
+    background: #007bff;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .gwl-button:hover {
+    background: #0056b3;
+  }
+  
+  .gwl-prediction {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 1.2rem;
+    color: green;
+  }
+  
