@@ -13,17 +13,14 @@ const PredictionResultPage = () => {
   const navigate = useNavigate()
   const theme = useTheme()
 
-  // Get prediction data from location state
   const predictionData = location.state?.predictionData || null
 
-  // Placeholder for future AI assistance integration
   const getAIAssistance = async () => {
     setLoading(true)
     try {
-      // This will be replaced with actual AI integration in the future
       await new Promise((resolve) => setTimeout(resolve, 1500))
       setAiAssistance(
-        "Based on the predicted groundwater level and current climate conditions, I recommend implementing water conservation measures. The groundwater level is expected to decrease in the coming months due to lower than average rainfall predictions.",
+        "Based on the predicted groundwater level and current climate conditions, I recommend implementing water conservation measures. The groundwater level is expected to decrease in the coming months due to lower than average rainfall predictions."
       )
     } catch (error) {
       console.error("Error fetching AI assistance:", error)
@@ -32,7 +29,6 @@ const PredictionResultPage = () => {
     }
   }
 
-  // If no prediction data is available, redirect to prediction form
   useEffect(() => {
     if (!predictionData && !location.state) {
       navigate("/predict")
@@ -70,9 +66,8 @@ const PredictionResultPage = () => {
         Groundwater Level Prediction Results
       </Typography>
 
-      {/* Import PredictionResults component dynamically */}
+      {/* Dynamically Load PredictionResults */}
       <Box sx={{ mb: 4 }}>
-        {/* We'll use dynamic import to load the PredictionResults component */}
         {(() => {
           const PredictionResults = require("../PredictionResults").default
           return <PredictionResults {...predictionData} />
@@ -130,6 +125,15 @@ const PredictionResultPage = () => {
             >
               {loading ? "Generating Insights..." : "Get AI Assistance"}
             </Button>
+
+            <Button
+              variant="outlined"
+              sx={{ mt: 2 }}
+              onClick={() => navigate("/chatbot", { state: { mbgl: predictionData?.mbgl } })}
+            >
+              Ask AI for Groundwater Advice
+            </Button>
+
             <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
               Click to get AI-powered insights and recommendations based on your prediction results.
             </Typography>

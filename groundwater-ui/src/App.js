@@ -12,6 +12,8 @@ import PrivateRoute from "./components/PrivateRoute"
 import { AuthProvider } from "./context/AuthContext"
 import theme from "./theme"
 import axios from "axios"
+import Chatbot from './components/Chatbot'; 
+
 
 // Import the new components
 import Dashboard from "./components/Dashboard/Dashboard"
@@ -81,6 +83,8 @@ function App() {
                 {/* Placeholder routes */}
                 <Route path="/about" element={<PlaceholderPage title="About Us" />} />
                 <Route path="/contact" element={<PlaceholderPage title="Contact Us" />} />
+                <Route path="/chatbot" element={<Chatbot />} />
+
               </Routes>
             </Box>
 
