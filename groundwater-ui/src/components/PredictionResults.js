@@ -1,7 +1,5 @@
 "use client"
 import { Grid, Paper, Typography, Box, Divider, Chip, useTheme } from "@mui/material"
-import ChartVisualization from "./ChartVisualization"
-import MapVisualization from "./MapVisualization"
 import OpacityIcon from "@mui/icons-material/Opacity"
 import ThermostatIcon from "@mui/icons-material/Thermostat"
 import WaterIcon from "@mui/icons-material/Water"
@@ -60,19 +58,10 @@ const PredictionResults = ({
     }
 
     // If we have a predefined format, use it, otherwise capitalize the first letter
-    return locations[locationString] || locationString.charAt(0).toUpperCase() + locationString.slice(1)
+    return locations[locationString.toLowerCase()] || locationString.charAt(0).toUpperCase() + locationString.slice(1)
   }
 
-  // Remove this function:
-  // const formatPeriod = (periodCode) => {
-  //   const periods = {
-  //     "pre-monsoon": "Pre-Monsoon",
-  //     "post-monsoon": "Post-Monsoon",
-  //   }
-  //   return periods[periodCode] || periodCode
-  // }
-
-  // Add this function:
+  // Get monsoon period based on preMonsoon and postMonsoon values
   const getMonsoonPeriod = () => {
     if (preMonsoon === 1) return "Pre-Monsoon"
     if (postMonsoon === 1) return "Post-Monsoon"
@@ -153,7 +142,7 @@ const PredictionResults = ({
               </Typography>
             </Box>
             <Typography variant="body1" sx={{ fontWeight: "medium", ml: 4 }}>
-              {preMonsoon === 1 ? "Pre-Monsoon" : postMonsoon === 1 ? "Post-Monsoon" : "Not specified"}
+              {getMonsoonPeriod()}
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
@@ -205,19 +194,6 @@ const PredictionResults = ({
 
       <Divider sx={{ mb: 4 }} />
 
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <Box sx={{ height: 400 }}>
-            <ChartVisualization groundwaterLevel={groundwaterLevel} />
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Box sx={{ height: 400 }}>
-            <MapVisualization location={location} state={state} groundwaterLevel={groundwaterLevel} />
-          </Box>
-        </Grid>
-      </Grid>
-
       <Box sx={{ mt: 4 }}>
         <Chip
           label="Prediction Summary"
@@ -237,8 +213,8 @@ const PredictionResults = ({
           }}
         >
           <Typography variant="body1" paragraph>
-            Based on the provided data for {formatLocation(location)} in {state} during {getMonsoonPeriod()}, our model
-            predicts the following groundwater level:
+            Based on the provided data for {formatLocation(location || "")} in {state || "your region"} during{" "}
+            {getMonsoonPeriod()}, our model predicts the following groundwater level:
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>

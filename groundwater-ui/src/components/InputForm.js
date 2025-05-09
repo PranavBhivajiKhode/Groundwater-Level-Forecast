@@ -202,7 +202,7 @@ const InputForm = ({ onPredictionResult }) => {
         const response = await axios.post("http://localhost:8080/gwl", requestBody)
 
         // Handle successful response
-        console.log("Prediction result in mbgl:", response.data) 
+        console.log("Prediction result in mbgl:", response.data)
         setSuccess(response.data)
 
         // Pass the prediction result to the parent component

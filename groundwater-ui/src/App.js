@@ -1,20 +1,24 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Box, CssBaseline, ThemeProvider } from "@mui/material";
-import Navbar from "./components/Navbar";
-import HeroSection from "./components/Homepage/HeroSection";
-import FeaturesSection from "./components/Homepage/FeaturesSection";
-import Footer from "./components/Homepage/Footer";
-import PredictionForm from "./components/PredictionForm/PredictionForm";
-import Login from "./components/Auth/Login";
-import Signup from "./components/Auth/Signup";
-import ForgotPassword from "./components/Auth/ForgotPassword";
-import PrivateRoute from "./components/PrivateRoute";
-import { AuthProvider } from "./context/AuthContext";
-import theme from "./theme";
-import axios from 'axios';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { Box, CssBaseline, ThemeProvider } from "@mui/material"
+import Navbar from "./components/Navbar"
+import HeroSection from "./components/Homepage/HeroSection"
+import FeaturesSection from "./components/Homepage/FeaturesSection"
+import Footer from "./components/Homepage/Footer"
+import PredictionForm from "./components/PredictionForm/PredictionForm"
+import Login from "./components/Auth/Login"
+import Signup from "./components/Auth/Signup"
+import ForgotPassword from "./components/Auth/ForgotPassword"
+import PrivateRoute from "./components/PrivateRoute"
+import { AuthProvider } from "./context/AuthContext"
+import theme from "./theme"
+import axios from "axios"
+
+// Import the new components
+import Dashboard from "./components/Dashboard/Dashboard"
+import PredictionResultPage from "./components/PredictionResult/PredictionResultPage"
 
 // Set up axios defaults
-axios.defaults.baseURL = 'http://localhost:8080/api'; // Change to your Spring Boot API URL
+axios.defaults.baseURL = "http://localhost:8080/api" // Change to your Spring Boot API URL
 
 function App() {
   return (
@@ -55,15 +59,26 @@ function App() {
                   }
                 />
 
-                {/* Placeholder routes */}
+                {/* New Routes */}
+                <Route
+                  path="/prediction-result"
+                  element={
+                    <PrivateRoute>
+                      <PredictionResultPage />
+                    </PrivateRoute>
+                  }
+                />
+
                 <Route
                   path="/dashboard"
                   element={
                     <PrivateRoute>
-                      <PlaceholderPage title="Dashboard" />
+                      <Dashboard />
                     </PrivateRoute>
                   }
                 />
+
+                {/* Placeholder routes */}
                 <Route path="/about" element={<PlaceholderPage title="About Us" />} />
                 <Route path="/contact" element={<PlaceholderPage title="Contact Us" />} />
               </Routes>
@@ -75,7 +90,7 @@ function App() {
         </Router>
       </AuthProvider>
     </ThemeProvider>
-  );
+  )
 }
 
 // Simple placeholder component for new routes
@@ -124,7 +139,7 @@ function PlaceholderPage({ title }) {
         </Box>
       </Box>
     </Box>
-  );
+  )
 }
 
-export default App;
+export default App
