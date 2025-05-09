@@ -44,23 +44,7 @@ const Navbar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
   const location = useLocation()
   const navigate = useNavigate()
-  const [scrolled, setScrolled] = useState(false)
   const { currentUser, logout } = useAuth()
-
-  // Check if the page has been scrolled
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 20
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [scrolled])
 
   const toggleDrawer = (open) => (event) => {
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
@@ -110,12 +94,6 @@ const Navbar = () => {
     return location.pathname.startsWith(path)
   }
 
-  // Create a trigger for hiding the AppBar on scroll down
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 100,
-  })
-
   const drawer = (
     <Box sx={{ width: 280 }} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
       <Box
@@ -155,8 +133,6 @@ const Navbar = () => {
                 width: 60,
                 height: 60,
                 mb: 2,
-                bgcolor: "white",
-                color: theme.palette.primary.main,
               }}
             >
               <WaterDropIcon sx={{ fontSize: 30 }} />
@@ -287,13 +263,11 @@ const Navbar = () => {
     <>
       <AppBar
         position="fixed"
-        elevation={scrolled ? 4 : 0}
+        elevation={1}
         sx={{
           zIndex: (theme) => theme.zIndex.drawer + 1,
-          bgcolor: scrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
-          backdropFilter: scrolled ? "blur(10px)" : "none",
-          transition: "all 0.3s ease",
-          borderBottom: scrolled ? `1px solid ${theme.palette.divider}` : "none",
+          bgcolor: "white",
+          borderBottom: `1px solid ${theme.palette.divider}`,
         }}
       >
         <Container maxWidth="xl">
@@ -303,24 +277,17 @@ const Navbar = () => {
                 display: "flex",
                 alignItems: "center",
                 flexGrow: 1,
-                transition: "transform 0.3s ease",
-                "&:hover": {
-                  transform: "scale(1.02)",
-                },
               }}
             >
               <Avatar
                 sx={{
-                  bgcolor: scrolled ? theme.palette.primary.main : "rgba(255, 255, 255, 0.2)",
+                  bgcolor: theme.palette.primary.main,
                   mr: 2,
-                  transition: "all 0.3s ease",
-                  boxShadow: scrolled ? "0 2px 10px rgba(0,0,0,0.1)" : "none",
                 }}
               >
                 <WaterDropIcon
                   sx={{
-                    color: scrolled ? "white" : "white",
-                    transition: "color 0.3s ease",
+                    color: "white",
                   }}
                 />
               </Avatar>
@@ -331,8 +298,7 @@ const Navbar = () => {
                 sx={{
                   fontWeight: "bold",
                   textDecoration: "none",
-                  color: scrolled ? "text.primary" : "white",
-                  transition: "color 0.3s ease",
+                  color: "text.primary",
                   letterSpacing: "0.5px",
                   display: "flex",
                   alignItems: "center",
@@ -350,10 +316,10 @@ const Navbar = () => {
                   aria-label="menu"
                   onClick={toggleDrawer(true)}
                   sx={{
-                    color: scrolled ? "text.primary" : "white",
-                    border: scrolled ? `1px solid ${theme.palette.divider}` : "1px solid rgba(255,255,255,0.3)",
+                    color: "text.primary",
+                    border: `1px solid ${theme.palette.divider}`,
                     "&:hover": {
-                      bgcolor: scrolled ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.1)",
+                      bgcolor: "rgba(0,0,0,0.04)",
                     },
                   }}
                 >
@@ -373,36 +339,13 @@ const Navbar = () => {
                         mx: 0.5,
                         px: 2,
                         py: 1,
-                        color: scrolled ? (isActive(item.path) ? "primary.main" : "text.primary") : "white",
+                        color: isActive(item.path) ? "primary.main" : "text.primary",
                         fontWeight: isActive(item.path) ? "bold" : "medium",
                         position: "relative",
                         overflow: "hidden",
-                        "&:after": isActive(item.path)
-                          ? {
-                              content: '""',
-                              position: "absolute",
-                              bottom: "0",
-                              left: "0",
-                              width: "100%",
-                              height: "3px",
-                              bgcolor: "primary.main",
-                              borderRadius: "3px 3px 0 0",
-                            }
-                          : {},
                         "&:hover": {
-                          bgcolor: scrolled ? "rgba(33, 150, 243, 0.08)" : "rgba(255, 255, 255, 0.1)",
-                          "&:after": {
-                            content: '""',
-                            position: "absolute",
-                            bottom: "0",
-                            left: "10%",
-                            width: "80%",
-                            height: "3px",
-                            bgcolor: isActive(item.path) ? "primary.main" : "rgba(255, 255, 255, 0.5)",
-                            borderRadius: "3px 3px 0 0",
-                          },
+                          bgcolor: "rgba(33, 150, 243, 0.08)",
                         },
-                        transition: "all 0.3s ease",
                       }}
                     >
                       {item.name}
@@ -417,9 +360,9 @@ const Navbar = () => {
                         color="inherit"
                         onClick={handleMenuOpen}
                         sx={{
-                          color: scrolled ? "text.primary" : "white",
+                          color: "text.primary",
                           "&:hover": {
-                            bgcolor: scrolled ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.1)",
+                            bgcolor: "rgba(0,0,0,0.04)",
                           },
                         }}
                       >
@@ -497,15 +440,12 @@ const Navbar = () => {
                     <Button
                       component={Link}
                       to="/login"
-                      variant="outlined"
                       startIcon={<LoginIcon />}
                       sx={{
                         mr: 1,
-                        color: scrolled ? "primary.main" : "white",
-                        borderColor: scrolled ? "primary.main" : "white",
+                        color: theme.palette.primary.main,
                         "&:hover": {
-                          borderColor: scrolled ? "primary.dark" : "white",
-                          bgcolor: scrolled ? "rgba(33, 150, 243, 0.08)" : "rgba(255, 255, 255, 0.1)",
+                          bgcolor: "rgba(33, 150, 243, 0.08)",
                         },
                       }}
                     >
@@ -517,9 +457,9 @@ const Navbar = () => {
                       variant="contained"
                       startIcon={<PersonAddIcon />}
                       sx={{
-                        background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                        bgcolor: theme.palette.primary.main,
                         "&:hover": {
-                          background: `linear-gradient(45deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.dark})`,
+                          bgcolor: theme.palette.primary.dark,
                         },
                       }}
                     >

@@ -56,6 +56,9 @@ const Footer = () => {
               <Link href="#" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
                 Contact
               </Link>
+               <Link href="/chatbot" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
+      Chatbot
+    </Link>
             </Box>
           </Grid>
 
