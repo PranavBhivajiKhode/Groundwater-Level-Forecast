@@ -47,7 +47,6 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
   const { currentUser, logout } = useAuth()
 
-  // Check if the page has been scrolled
   useEffect(() => {
     const handleScroll = () => {
       const isScrolled = window.scrollY > 20
@@ -290,7 +289,7 @@ const Navbar = () => {
         elevation={scrolled ? 4 : 0}
         sx={{
           zIndex: (theme) => theme.zIndex.drawer + 1,
-          bgcolor: scrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
+          bgcolor:"rgba(74, 93, 218, 0.95)",
           backdropFilter: scrolled ? "blur(10px)" : "none",
           transition: "all 0.3s ease",
           borderBottom: scrolled ? `1px solid ${theme.palette.divider}` : "none",

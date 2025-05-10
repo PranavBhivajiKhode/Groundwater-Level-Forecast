@@ -16,7 +16,7 @@ const PredictionForm = () => {
   const handlePredictionResult = async (formData) => {
     setLoading(true)
     try {
-      const response = await fetch("http://localhost:5000/predict", {
+      const response = await fetch("http://localhost:8080/gwl", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

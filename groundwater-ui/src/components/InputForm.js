@@ -1,6 +1,8 @@
+// Modified InputForm.js
 "use client"
 
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom" // Import useNavigate
 import {
   TextField,
   Button,
@@ -28,7 +30,7 @@ import WaterIcon from "@mui/icons-material/Water"
 import SendIcon from "@mui/icons-material/Send"
 import PublicIcon from "@mui/icons-material/Public"
 import WbTwilightIcon from "@mui/icons-material/WbTwilight"
-import WbSunnyIcon from "@mui/icons-material/WbSunny" // Import WbSunnyIcon
+import WbSunnyIcon from "@mui/icons-material/WbSunny"
 
 import axios from "axios"
 
@@ -73,6 +75,7 @@ const locationsByState = {
 
 const InputForm = ({ onPredictionResult }) => {
   const theme = useTheme()
+  const navigate = useNavigate() // Initialize useNavigate
   const [formData, setFormData] = useState({
     state: "",
     location: "",
@@ -186,7 +189,7 @@ const InputForm = ({ onPredictionResult }) => {
       setError("")
       setSuccess(false)
 
-      // Create the request body in the exact format required by the API
+      const email = localStorage.getItem('userEmail');  
       const requestBody = {
         rainfall: Number(formData.rainfall),
         maxTemperature: Number(formData.maxTemperature),
@@ -202,23 +205,29 @@ const InputForm = ({ onPredictionResult }) => {
         const response = await axios.post("http://localhost:8080/gwl", requestBody)
 
         // Handle successful response
-        console.log("Prediction result in mbgl:", response.data)
-        setSuccess(response.data)
+        console.log("Prediction result:", response.data)
+        setSuccess(true)
 
-        // Pass the prediction result to the parent component
+        // Create a complete data object with both input and prediction result
+        const predictionData = {
+          ...response.data,
+          state: formData.state,
+          location: formData.location,
+          preMonsoon: formData.preMonsoon,
+          postMonsoon: formData.postMonsoon,
+          maxTemperature: formData.maxTemperature,
+          minTemperature: formData.minTemperature,
+          rainfall: formData.rainfall,
+          morningHumidity: formData.morningHumidity,
+          eveningHumidity: formData.eveningHumidity,
+        }
+
+        // Navigate to the prediction result page with the data
+        navigate("/prediction-result", { state: { predictionData } })
+
+        // Also call the callback if provided (for backward compatibility)
         if (onPredictionResult) {
-          onPredictionResult({
-            ...response.data,
-            location: formData.location,
-            state: formData.state,
-            preMonsoon: formData.preMonsoon,
-            postMonsoon: formData.postMonsoon,
-            maxTemperature: formData.maxTemperature,
-            minTemperature: formData.minTemperature,
-            rainfall: formData.rainfall,
-            morningHumidity: formData.morningHumidity,
-            eveningHumidity: formData.eveningHumidity,
-          })
+          onPredictionResult(predictionData)
         }
       } catch (error) {
         console.error("Error making prediction:", error)

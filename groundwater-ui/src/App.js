@@ -12,13 +12,10 @@ import PrivateRoute from "./components/PrivateRoute"
 import { AuthProvider } from "./context/AuthContext"
 import theme from "./theme"
 import axios from "axios"
-
-// Import the new components
 import Dashboard from "./components/Dashboard/Dashboard"
 import PredictionResultPage from "./components/PredictionResult/PredictionResultPage"
-
-// Set up axios defaults
-axios.defaults.baseURL = "http://localhost:8080/api" // Change to your Spring Boot API URL
+import Chatbot from "./components/Chatbot"
+axios.defaults.baseURL = "http://localhost:8080/api"
 
 function App() {
   return (
@@ -27,29 +24,26 @@ function App() {
       <AuthProvider>
         <Router>
           <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-            {/* Navbar is fixed at the top */}
             <Navbar />
-
-            {/* Main content */}
             <Box component="main" sx={{ flexGrow: 1 }}>
               <Routes>
-                {/* Home Page Route */}
-                <Route
-                  path="/"
-                  element={
-                    <>
-                      <HeroSection />
-                      <FeaturesSection />
-                    </>
-                  }
-                />
-
-                {/* Auth Routes */}
+                {/* Public Routes */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
 
                 {/* Protected Routes */}
+                <Route
+                  path="/"
+                  element={
+                    <PrivateRoute>
+                      <>
+                        <HeroSection />
+                        <FeaturesSection />
+                      </>
+                    </PrivateRoute>
+                  }
+                />
                 <Route
                   path="/predict"
                   element={
@@ -58,16 +52,15 @@ function App() {
                     </PrivateRoute>
                   }
                 />
-
-                {/* New Routes */}
                 <Route
-                  path="/prediction-result"
-                  element={
-                    <PrivateRoute>
-                      <PredictionResultPage />
-                    </PrivateRoute>
-                  }
-                />
+  path="/prediction-result"
+  element={
+    <PrivateRoute>
+      <PredictionResultPage />
+    </PrivateRoute>
+  }
+/>
+
 
                 <Route
                   path="/dashboard"
@@ -77,14 +70,32 @@ function App() {
                     </PrivateRoute>
                   }
                 />
-
-                {/* Placeholder routes */}
-                <Route path="/about" element={<PlaceholderPage title="About Us" />} />
-                <Route path="/contact" element={<PlaceholderPage title="Contact Us" />} />
+                <Route
+                  path="/about"
+                  element={
+                    <PrivateRoute>
+                      <PlaceholderPage title="About Us" />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/contact"
+                  element={
+                    <PrivateRoute>
+                      <PlaceholderPage title="Contact Us" />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+    path="/chatbot"
+    element={
+      <PrivateRoute>
+        <Chatbot />
+      </PrivateRoute>
+    }
+  />
               </Routes>
             </Box>
-
-            {/* Footer */}
             <Footer />
           </Box>
         </Router>
@@ -93,7 +104,6 @@ function App() {
   )
 }
 
-// Simple placeholder component for new routes
 function PlaceholderPage({ title }) {
   return (
     <Box
@@ -134,8 +144,8 @@ function PlaceholderPage({ title }) {
           {title}
         </Box>
         <Box component="p" sx={{ fontSize: "1.1rem", color: "text.secondary", mb: 4 }}>
-          This page is currently under development. We're working hard to bring you the best experience possible. Check
-          back soon for updates!
+          This page is currently under development. We're working hard to bring you the best experience possible.
+          Check back soon for updates!
         </Box>
       </Box>
     </Box>

@@ -2,6 +2,9 @@ package Project.Ground_Water_Predictor;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,16 +30,19 @@ public class ControllerGWL {
 		this.historyService = historyService;
 	}
 	
-	@PostMapping(value = "/gwl", consumes = "application/json")
-	public String predictGWl(@RequestBody Input_Features features) throws IOException , InterruptedException{
-		String prediction = predictionService.predictGWL(features);
-		historyService.AddHistory(features, prediction);
-		return prediction;
+	@PostMapping(value = "/gwl", consumes = "application/json", produces = "application/json")
+	public Map<String, String> predictGWl(@RequestBody Input_Features features) throws IOException, InterruptedException {
+	    String prediction = predictionService.predictGWL(features);
+	    historyService.AddHistory(features, prediction);
+	    Map<String, String> response = new HashMap<>();
+	    response.put("prediction", prediction);
+	    return response;
 	}
+
 	
-	@GetMapping("/history/{userId}")
-	public List<PredictionHistory> history(@PathVariable int userId) throws Exception{
-		return historyService.PredictionHistory(userId);
+	@GetMapping("/history/{email}")
+	public List<PredictionHistory> history(@PathVariable String email) throws Exception{
+		return historyService.PredictionHistory(email);
 	}
 }
 

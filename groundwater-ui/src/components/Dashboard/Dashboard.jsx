@@ -56,7 +56,7 @@ const Dashboard = () => {
             }}
           >
             <Tab icon={<DashboardIcon />} label="Overview" iconPosition="start" sx={{ fontWeight: "medium" }} />
-            <Tab icon={<HistoryIcon />} label="Prediction History" iconPosition="start" sx={{ fontWeight: "medium" }} />
+            {/* <Tab icon={<HistoryIcon />} label="Prediction History" iconPosition="start" sx={{ fontWeight: "medium" }} /> */}
             <Tab icon={<SettingsIcon />} label="Settings" iconPosition="start" sx={{ fontWeight: "medium" }} />
           </Tabs>
         </Box>

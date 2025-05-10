@@ -29,24 +29,24 @@ const features = [
     icon: <TouchAppIcon sx={{ fontSize: 50 }} />,
     delay: 300,
   },
-  {
-    title: "Data Visualization",
-    description: "Interactive charts and maps to help you understand groundwater trends and make informed decisions.",
-    icon: <BarChartIcon sx={{ fontSize: 50 }} />,
-    delay: 450,
-  },
-  {
-    title: "Weather Integration",
-    description: "Incorporates weather data and climate forecasts to improve prediction accuracy and reliability.",
-    icon: <CloudIcon sx={{ fontSize: 50 }} />,
-    delay: 600,
-  },
-  {
-    title: "Alert System",
-    description: "Set up custom alerts for critical groundwater levels to stay informed about important changes.",
-    icon: <NotificationsActiveIcon sx={{ fontSize: 50 }} />,
-    delay: 750,
-  },
+  // {
+  //   title: "Data Visualization",
+  //   description: "Interactive charts and maps to help you understand groundwater trends and make informed decisions.",
+  //   icon: <BarChartIcon sx={{ fontSize: 50 }} />,
+  //   delay: 450,
+  // },
+  // {
+  //   title: "Weather Integration",
+  //   description: "Incorporates weather data and climate forecasts to improve prediction accuracy and reliability.",
+  //   icon: <CloudIcon sx={{ fontSize: 50 }} />,
+  //   delay: 600,
+  // },
+  // {
+  //   title: "Alert System",
+  //   description: "Set up custom alerts for critical groundwater levels to stay informed about important changes.",
+  //   icon: <NotificationsActiveIcon sx={{ fontSize: 50 }} />,
+  //   delay: 750,
+  // },
 ]
 
 const FeaturesSection = () => {

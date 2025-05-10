@@ -1,13 +1,23 @@
-"use client"
-import { Grid, Paper, Typography, Box, Divider, Chip, useTheme } from "@mui/material"
-import OpacityIcon from "@mui/icons-material/Opacity"
-import ThermostatIcon from "@mui/icons-material/Thermostat"
-import WaterIcon from "@mui/icons-material/Water"
-import PublicIcon from "@mui/icons-material/Public"
-import LocationOnIcon from "@mui/icons-material/LocationOn"
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
-import WbSunnyIcon from "@mui/icons-material/WbSunny"
-import WbTwilightIcon from "@mui/icons-material/WbTwilight"
+"use client";
+
+import React from "react";
+import {
+  Grid,
+  Paper,
+  Typography,
+  Box,
+  Divider,
+  Chip,
+  useTheme,
+} from "@mui/material";
+import OpacityIcon from "@mui/icons-material/Opacity";
+import ThermostatIcon from "@mui/icons-material/Thermostat";
+import WaterIcon from "@mui/icons-material/Water";
+import PublicIcon from "@mui/icons-material/Public";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import WbTwilightIcon from "@mui/icons-material/WbTwilight";
 
 const PredictionResults = ({
   state,
@@ -22,13 +32,11 @@ const PredictionResults = ({
   groundwaterLevel,
   confidenceInterval,
 }) => {
-  const theme = useTheme()
+  const theme = useTheme();
 
-  // Format the location name for display
   const formatLocation = (locationString) => {
-    if (!locationString) return "Not specified"
+    if (!locationString) return "Not specified";
 
-    // If it's in our predefined list, use that
     const locations = {
       pune: "Pune",
       mumbai: "Mumbai",
@@ -55,18 +63,19 @@ const PredictionResults = ({
       durgapur: "Durgapur",
       asansol: "Asansol",
       siliguri: "Siliguri",
-    }
+    };
 
-    // If we have a predefined format, use it, otherwise capitalize the first letter
-    return locations[locationString.toLowerCase()] || locationString.charAt(0).toUpperCase() + locationString.slice(1)
-  }
+    return (
+      locations[locationString.toLowerCase()] ||
+      locationString.charAt(0).toUpperCase() + locationString.slice(1)
+    );
+  };
 
-  // Get monsoon period based on preMonsoon and postMonsoon values
   const getMonsoonPeriod = () => {
-    if (preMonsoon === 1) return "Pre-Monsoon"
-    if (postMonsoon === 1) return "Post-Monsoon"
-    return "Not specified"
-  }
+    if (preMonsoon === 1) return "Pre-Monsoon";
+    if (postMonsoon === 1) return "Post-Monsoon";
+    return "Not specified";
+  };
 
   return (
     <Paper
@@ -74,7 +83,8 @@ const PredictionResults = ({
       sx={{
         p: 4,
         borderRadius: theme.shape.borderRadius,
-        background: "linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,1))",
+        background:
+          "linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,1))",
         boxShadow: "0px 8px 30px rgba(0, 0, 0, 0.1)",
         position: "relative",
         overflow: "hidden",
@@ -92,11 +102,7 @@ const PredictionResults = ({
       <Typography
         variant="h5"
         gutterBottom
-        sx={{
-          fontWeight: "bold",
-          mb: 3,
-          color: theme.palette.text.primary,
-        }}
+        sx={{ fontWeight: "bold", mb: 3, color: theme.palette.text.primary }}
       >
         Groundwater Prediction Results
       </Typography>
@@ -123,6 +129,7 @@ const PredictionResults = ({
               {state || "Not specified"}
             </Typography>
           </Grid>
+
           <Grid item xs={12} sm={6} md={3}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <LocationOnIcon color="primary" />
@@ -131,9 +138,10 @@ const PredictionResults = ({
               </Typography>
             </Box>
             <Typography variant="body1" sx={{ fontWeight: "medium", ml: 4 }}>
-              {formatLocation(location) || "Not specified"}
+              {formatLocation(location)}
             </Typography>
           </Grid>
+
           <Grid item xs={12} sm={6} md={3}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <CalendarMonthIcon color="primary" />
@@ -145,6 +153,7 @@ const PredictionResults = ({
               {getMonsoonPeriod()}
             </Typography>
           </Grid>
+
           <Grid item xs={12} sm={6} md={3}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <ThermostatIcon color="primary" />
@@ -153,9 +162,12 @@ const PredictionResults = ({
               </Typography>
             </Box>
             <Typography variant="body1" sx={{ fontWeight: "medium", ml: 4 }}>
-              {minTemperature && maxTemperature ? `${minTemperature}°C to ${maxTemperature}°C` : "Not specified"}
+              {minTemperature && maxTemperature
+                ? `${minTemperature}°C to ${maxTemperature}°C`
+                : "Not specified"}
             </Typography>
           </Grid>
+
           <Grid item xs={12} sm={6} md={4}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <WaterIcon color="primary" />
@@ -167,6 +179,7 @@ const PredictionResults = ({
               {rainfall ? `${rainfall} mm` : "Not specified"}
             </Typography>
           </Grid>
+
           <Grid item xs={12} sm={6} md={4}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <WbSunnyIcon color="primary" />
@@ -178,6 +191,7 @@ const PredictionResults = ({
               {morningHumidity ? `${morningHumidity}%` : "Not specified"}
             </Typography>
           </Grid>
+
           <Grid item xs={12} sm={6} md={4}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <WbTwilightIcon color="primary" />
@@ -213,9 +227,11 @@ const PredictionResults = ({
           }}
         >
           <Typography variant="body1" paragraph>
-            Based on the provided data for {formatLocation(location || "")} in {state || "your region"} during{" "}
-            {getMonsoonPeriod()}, our model predicts the following groundwater level:
+            Based on the provided data for {formatLocation(location || "")} in{" "}
+            {state || "your region"} during {getMonsoonPeriod()}, our model
+            predicts the following groundwater level:
           </Typography>
+
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
               <Box
@@ -230,8 +246,18 @@ const PredictionResults = ({
                   height: "100%",
                 }}
               >
-                <OpacityIcon sx={{ fontSize: 48, color: theme.palette.primary.main, mb: 1 }} />
-                <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                <OpacityIcon
+                  sx={{
+                    fontSize: 48,
+                    color: theme.palette.primary.main,
+                    mb: 1,
+                  }}
+                />
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  gutterBottom
+                >
                   Predicted Groundwater Level
                 </Typography>
                 <Typography
@@ -244,11 +270,16 @@ const PredictionResults = ({
                 >
                   {groundwaterLevel ? `${groundwaterLevel} mbgl` : "Calculating..."}
                 </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ mt: 1, textAlign: "center" }}>
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ mt: 1, textAlign: "center" }}
+                >
                   meters below ground level
                 </Typography>
               </Box>
             </Grid>
+
             <Grid item xs={12} md={4}>
               <Box
                 sx={{
@@ -261,14 +292,23 @@ const PredictionResults = ({
                 <Typography variant="subtitle2" color="text.secondary">
                   Confidence Interval
                 </Typography>
-                <Typography variant="h6" sx={{ fontWeight: "bold", color: theme.palette.secondary.main }}>
-                  {confidenceInterval ? `±${confidenceInterval} meters` : "±0.5 meters"}
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: "bold",
+                    color: theme.palette.secondary.main,
+                  }}
+                >
+                  {confidenceInterval
+                    ? `±${confidenceInterval} meters`
+                    : "±0.5 meters"}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
                   This represents the statistical uncertainty in our prediction.
                 </Typography>
               </Box>
             </Grid>
+
             <Grid item xs={12} md={4}>
               <Box
                 sx={{
@@ -281,16 +321,22 @@ const PredictionResults = ({
                 <Typography variant="subtitle2" color="text.secondary">
                   Water Quality Assessment
                 </Typography>
-                <Typography variant="h6" sx={{ fontWeight: "bold", color: theme.palette.warning.main }}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: "bold",
+                    color: theme.palette.warning.main,
+                  }}
+                >
                   {groundwaterLevel && groundwaterLevel < 5
                     ? "Excellent"
                     : groundwaterLevel && groundwaterLevel < 10
-                      ? "Good"
-                      : groundwaterLevel && groundwaterLevel < 15
-                        ? "Moderate"
-                        : groundwaterLevel && groundwaterLevel < 20
-                          ? "Poor"
-                          : "Insufficient Data"}
+                    ? "Good"
+                    : groundwaterLevel && groundwaterLevel < 15
+                    ? "Moderate"
+                    : groundwaterLevel && groundwaterLevel < 20
+                    ? "Poor"
+                    : "Insufficient Data"}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
                   Based on depth and regional water quality patterns.
@@ -301,7 +347,7 @@ const PredictionResults = ({
         </Paper>
       </Box>
     </Paper>
-  )
-}
+  );
+};
 
-export default PredictionResults
+export default PredictionResults;

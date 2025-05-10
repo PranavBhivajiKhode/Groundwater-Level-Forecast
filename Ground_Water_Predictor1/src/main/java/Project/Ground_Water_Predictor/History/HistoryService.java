@@ -46,12 +46,12 @@ public class HistoryService {
 		historyRepo.save(history);
 	}
 	
-	public List<PredictionHistory> PredictionHistory(int userId) throws Exception{
-		Users user = userRepo.findById(userId).orElse(null);
+	public List<PredictionHistory> PredictionHistory(String email) throws Exception{
+		Users user = userRepo.findByEmail(email).orElse(null);
 		if(user == null) {
 			throw new RuntimeException("User not found");
 		}
-		List<PredictionHistory> history = historyRepo.findByUser_UserId(userId);
+		List<PredictionHistory> history = historyRepo.findByUser_UserId(user.getUserId());
 		return history;
 	}
 	

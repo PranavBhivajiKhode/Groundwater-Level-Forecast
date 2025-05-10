@@ -4,7 +4,6 @@ import TwitterIcon from "@mui/icons-material/Twitter"
 import LinkedInIcon from "@mui/icons-material/LinkedIn"
 import GitHubIcon from "@mui/icons-material/GitHub"
 import WaterDropIcon from "@mui/icons-material/WaterDrop"
-
 const Footer = () => {
   return (
     <Box sx={{ bgcolor: "#1a2027", color: "white", py: 6 }}>
@@ -40,23 +39,27 @@ const Footer = () => {
             <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
               Quick Links
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-              <Link href="/" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                Home
-              </Link>
-              <Link href="/predict" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                Prediction Tool
-              </Link>
-              <Link href="#features" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                Features
-              </Link>
-              <Link href="#" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                About Us
-              </Link>
-              <Link href="#" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
-                Contact
-              </Link>
-            </Box>
+           <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+  <Link href="/" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
+    Home
+  </Link>
+  <Link href="/predict" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
+    Prediction Tool
+  </Link>
+  <Link href="#features" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
+    Features
+  </Link>
+  <Link href="#" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
+    About Us
+  </Link>
+  <Link href="/chatbot" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
+    Chatbot
+  </Link>
+  <Link href="#" color="inherit" underline="hover" sx={{ color: "rgba(255,255,255,0.7)" }}>
+    Contact
+  </Link>
+</Box>
+
           </Grid>
 
           <Grid item xs={12} sm={6} md={4}>
